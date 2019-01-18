@@ -49,7 +49,7 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-Library/
+TSProject/Library/
 # Crashlytics generated file
 crashlytics-build.properties
 =======
