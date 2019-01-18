@@ -32,6 +32,10 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+<<<<<<< HEAD
+=======
+*.csproj
+>>>>>>> f28f09a48a80f2b33fe60832ea676e68d362e772
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -45,6 +49,10 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
+<<<<<<< HEAD
+=======
+Asset/Library/
+>>>>>>> f28f09a48a80f2b33fe60832ea676e68d362e772
 # Crashlytics generated file
 crashlytics-build.properties
 =======
