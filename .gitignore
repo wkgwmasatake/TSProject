@@ -49,10 +49,10 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-TSProject/Library/
 # Crashlytics generated file
 crashlytics-build.properties
 =======
 TSProject/Library/shadercompiler-UnityShaderCompiler.exe0.log
 TSProject/Temp/UnityLockfile
+TSProject/Library/
 >>>>>>> c96d15f73bdeb427702cd0b4f80e65a922a00024
