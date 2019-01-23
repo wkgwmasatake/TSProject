@@ -7,7 +7,7 @@ public class HeartLifeManeger : MonoBehaviour
 {
     public GameObject GOHeart;
 
-    const int PlayerLifeMax = 20;
+    const int PlayerLifeMax = 11;
     int PlayerLife;
 
     int XMax = PlayerLifeMax / 2;
