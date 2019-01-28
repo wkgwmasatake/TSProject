@@ -6,9 +6,12 @@ public class FinishEffect : MonoBehaviour {
 
     public GameObject SapphiArtchan;
     public GameObject Enemy;
+    public GameObject GhostMaterial;
     public GameObject Ghost;
 
     Color GhostColor;
+
+    public Camera MainCamera;
 
     float time;
 
@@ -17,9 +20,9 @@ public class FinishEffect : MonoBehaviour {
         // ゴーストの大きさを0にする
         Ghost.transform.localScale = new Vector3(0, 0, 0);
 
-        GhostColor = Ghost.GetComponent<Renderer>().material.color;             // ゴーストの色を変数に入れる
+        GhostColor = GhostMaterial.GetComponent<Renderer>().material.color;             // ゴーストの色を変数に入れる
         GhostColor.a = 1.0f;                                                    // アルファ値をマックスに戻す
-        Ghost.GetComponent<Renderer>().material.color = GhostColor;             // アルファ値をマテリアルに反映させる
+        GhostMaterial.GetComponent<Renderer>().material.color = GhostColor;             // アルファ値をマテリアルに反映させる
 
         time = 0;
     }
@@ -28,15 +31,22 @@ public class FinishEffect : MonoBehaviour {
 	void Update () {
         if(GhostColor.a > 0)
         {
-            GhostColor.a -= 0.01f;                                                   // アルファ値を徐々に減らす
-            Ghost.GetComponent<Renderer>().material.color = GhostColor;             // アルファ値をマテリアルに反映させる
+            Ghost.transform.localScale += new Vector3(0.15f, 0.15f, 0.15f);
+            Ghost.transform.localPosition += new Vector3(0, 0.01f, 0);
+
+            if (Ghost.transform.lossyScale.x > 5.0f)
+            {
+                GhostColor.a -= 0.01f;                                                   // アルファ値を徐々に減らす
+                GhostMaterial.GetComponent<Renderer>().material.color = GhostColor;      // アルファ値をマテリアルに反映させる
+            }
         }
 
         // テスト用
         if(Input.GetKeyDown(KeyCode.Space))
         {
+            Ghost.transform.localScale = new Vector3(0, 0, 0);
             GhostColor.a = 1.0f;
-            Ghost.GetComponent<Renderer>().material.color = GhostColor;
+            GhostMaterial.GetComponent<Renderer>().material.color = GhostColor;
         }
     }
 }
