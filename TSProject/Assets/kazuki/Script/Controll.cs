@@ -11,7 +11,7 @@ public class Controll : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.anyKey)
+		if(Input.anyKey && !(Input.GetKey(KeyCode.K)))
         {
             Destroy(gameObject);
         }
