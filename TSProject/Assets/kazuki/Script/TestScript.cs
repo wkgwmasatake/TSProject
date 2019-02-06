@@ -54,23 +54,34 @@ public class TestScript : MonoBehaviour {
             if (angley > 1.40f) angley = 1.4f;
             
             Vy = Speed * Mathf.Sin(angley);
-            if (Vy < Pow && angley == 1.4f)
+            if ((Vy == Pow || Vy < Pow  ) && angley == 1.4f)
+            {
                 Vy += (Pow - Vy);
-            if (Vy < Pow && angley != 1.4f)
-                Vy += ( Pow - Vy);
-            if(angley != 1.40f)
-            Vec = new Vector3(Vx, Vy, Vz);
-            Debug.Log(angley);
+                Debug.Log(Vy+"いち");
+                Debug.Log("1");
+            }
+            if ((Vy == Pow || Vy < Pow ) && angley != 1.4f)
+            {
+                Vy += (Pow - Vy);
+                Debug.Log(Vy + "に");
+                Debug.Log("2");
+            }
+            if (angley != 1.40f)
+            {
+                Vec = new Vector3(Vx, Vy, Vz);
+                Debug.Log(angley);
+                Debug.Log("3");
+            }
         }else if(Input.GetKey(KeyCode.DownArrow))
         {
             angley -= 0.01f;
             if (angley < -1.4f)  angley = -1.4f;
 
             Vy = Speed * Mathf.Sin(angley);
-            if (Vy > Pow && angley == -1.4f)
-                Vy += (Pow - Vy);
-            if (Vy > Pow && angley != -1.4f)
-                 Vy += (Pow - Vy);
+            if ((Vy == Pow || Vy < Pow || Vy > Pow) && angley == -1.4f)
+                Vy -= (Pow - Vy);
+            if ((Vy == Pow || Vy < Pow || Vy > Pow) && angley != -1.4f)
+                 Vy -= (Pow - Vy);
             if (angley != -1.40f)
                 Vec = new Vector3(Vx, Vy, Vz);
             Debug.Log(angley);
@@ -78,7 +89,7 @@ public class TestScript : MonoBehaviour {
         if (Input.GetKey(KeyCode.M))
         {
             anglex += 0.01f;
-            if (anglex > 1.4) anglex = 1.5f;
+            if (anglex > 1.4) anglex = 1.4f;
            
             Vx = Speed * Mathf.Cos(anglex);
             Vec = new Vector3(Vx, Vy, Vz);
