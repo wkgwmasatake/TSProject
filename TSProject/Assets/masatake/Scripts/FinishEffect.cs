@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FinishEffect : MonoBehaviour {
 
@@ -8,6 +9,7 @@ public class FinishEffect : MonoBehaviour {
     public GameObject Enemy;
     public GameObject GhostMaterial;
     public GameObject Ghost;
+    public Text[] GhostBaster;
 
     Color GhostColor;
 
@@ -15,7 +17,7 @@ public class FinishEffect : MonoBehaviour {
 
     float InitCameraPositionY;
 
-    bool EffectFlg = false;
+    byte EffectFlg = 0;
 
     // テスト用変数
     Vector3 testVector;
@@ -29,12 +31,15 @@ public class FinishEffect : MonoBehaviour {
         GhostColor.a = 1.0f;                                                    // アルファ値をマックスに戻す
         GhostMaterial.GetComponent<Renderer>().material.color = GhostColor;             // アルファ値をマテリアルに反映させる
 
-        InitCameraPositionY = MainCamera.transform.position.y;
+        InitCameraPositionY = MainCamera.transform.position.y;      // カメラの初期位置を保存
 
         SapphiArtchan.gameObject.SetActive(false);                 // SetActiveをfalseに
 
-        Debug.Log(SapphiArtchan.activeSelf);
-
+        // フォントの透明度を0に設定
+        for(int i = 0; i < GhostBaster.Length; i++)
+        {
+            GhostBaster[i].GetComponent<Text>().color = new Color(GhostBaster[i].GetComponent<Text>().color.r, GhostBaster[i].GetComponent<Text>().color.g, GhostBaster[i].GetComponent<Text>().color.b, 0);
+        }
         // テスト用
         testVector = Ghost.transform.position;
     }
@@ -44,7 +49,7 @@ public class FinishEffect : MonoBehaviour {
 
         switch(EffectFlg)
         {
-            case false:
+            case 0:
                 if (GhostColor.a > 0)
                 {
                     Ghost.transform.localScale += new Vector3(0.2f, 0.2f, 0.2f);
@@ -64,10 +69,14 @@ public class FinishEffect : MonoBehaviour {
 
                 break;
 
-            case true:
+            case 1:
                 if(MainCamera.transform.position.y > InitCameraPositionY)
                 {
                     MainCamera.transform.localPosition += new Vector3(0, -0.1f, 0);
+                }
+                else
+                {
+                    StartCoroutine("WinPoseCoroutine");
                 }
                 break;
         }
@@ -85,11 +94,21 @@ public class FinishEffect : MonoBehaviour {
 
     private IEnumerator EffectFlgChange()
     {
-        yield return new WaitForSeconds(1.0f);
-        EffectFlg = true;
+        yield return new WaitForSeconds(0.5f);
+        EffectFlg = 1;
 
         // 表示キャラを切り替え
         SapphiArtchan.SetActive(true);
         Enemy.SetActive(false);
+    }
+
+    private IEnumerator WinPoseCoroutine()
+    {
+        yield return new WaitForSeconds(1.0f);
+
+        Animator WinPoseStart = SapphiArtchan.GetComponent<Animator>();
+        WinPoseStart.SetTrigger("Trigger");
+        EffectFlg = 2;
+
     }
 }
